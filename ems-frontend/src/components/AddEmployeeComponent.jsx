@@ -7,32 +7,85 @@ const AddEmployeeComponent = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
+    const [errors, setErrors] = useState({
+        firstName: '',
+        lastName: '',
+        email: ''
+    });
 
     const navigate = useNavigate();
     const { id } = useParams();
 
     useEffect(() => {
 
-            if(id){
+        if(id){
 
-                getEmployee(id).then((response)=>{
+            getEmployee(id).then((response)=>{
 
-                    setFirstName(response.data.firstName);
-                    setLastName(response.data.lastName);
-                    setEmail(response.data.email);
+                setFirstName(response.data.firstName);
+                setLastName(response.data.lastName);
+                setEmail(response.data.email);
 
-                 })
-                 .catch(error => {
-                    console.error(error);
-                });
+            }).catch(error => {
+                console.error(error);
+            });
 
+        }
+
+    }, [id]);
+
+        function validateForm() {
+
+            let valid = true;
+
+            const errorsCopy = {
+                firstName: '',
+                lastName: '',
+                email: ''
+            };
+
+            if (firstName.trim()) {
+                errorsCopy.firstName = '';
+            } else {
+                errorsCopy.firstName = 'First Name is required';
+                valid = false;
             }
 
-        }, [id]);
+            if (lastName.trim()) {
+                errorsCopy.lastName = '';
+            } else {
+                errorsCopy.lastName = 'Last Name is required';
+                valid = false;
+            }
+
+            if (email.trim()) {
+
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (emailPattern.test(email)) {
+                    errorsCopy.email = '';
+                } else {
+                    errorsCopy.email = 'Enter a valid email';
+                    valid = false;
+                }
+
+            } else {
+                errorsCopy.email = 'Email is required';
+                valid = false;
+            }
+
+            setErrors(errorsCopy);
+
+            return valid;
+        }
 
     function saveEmployee(e) {
 
         e.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        }
 
         const employee = {
             firstName,
@@ -87,12 +140,17 @@ const AddEmployeeComponent = () => {
 
                                 <input
                                     type="text"
-                                    placeholder='Enter First Name'
-                                    className='form-control'
+                                    placeholder="Enter First Name"
+                                    className={`form-control ${errors.firstName ? 'is-invalid' : ''}`}
                                     value={firstName}
-                                    onChange={(e) =>
-                                        setFirstName(e.target.value)}
+                                    onChange={(e) => setFirstName(e.target.value)}
                                 />
+
+                                {errors.firstName &&
+                                    <div className="invalid-feedback">
+                                        {errors.firstName}
+                                    </div>
+                                }
 
                             </div>
 
@@ -104,12 +162,17 @@ const AddEmployeeComponent = () => {
 
                                 <input
                                     type="text"
-                                    placeholder='Enter Last Name'
-                                    className='form-control'
+                                    placeholder="Enter Last Name"
+                                    className={`form-control ${errors.lastName ? 'is-invalid' : ''}`}
                                     value={lastName}
-                                    onChange={(e) =>
-                                        setLastName(e.target.value)}
+                                    onChange={(e) => setLastName(e.target.value)}
                                 />
+
+                                {errors.lastName &&
+                                    <div className="invalid-feedback">
+                                        {errors.lastName}
+                                    </div>
+                                }
 
                             </div>
 
@@ -121,12 +184,17 @@ const AddEmployeeComponent = () => {
 
                                 <input
                                     type="email"
-                                    placeholder='Enter Email'
-                                    className='form-control'
+                                    placeholder="Enter Email"
+                                    className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                                     value={email}
-                                    onChange={(e) =>
-                                        setEmail(e.target.value)}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
+
+                                {errors.email &&
+                                    <div className="invalid-feedback">
+                                        {errors.email}
+                                    </div>
+                                }
 
                             </div>
 
