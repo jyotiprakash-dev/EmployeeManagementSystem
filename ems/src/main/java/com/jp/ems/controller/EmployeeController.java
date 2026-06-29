@@ -9,6 +9,9 @@ import com.jp.ems.service.EmployeeService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.RequestParam;
+
 @CrossOrigin("http://localhost:5173")
 @RestController
 @RequestMapping("/api/employees")
@@ -28,6 +31,14 @@ public class EmployeeController {
     @GetMapping
     public List<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();
+    }
+    
+    @GetMapping("/page")
+    public Page<Employee> getEmployeesWithPagination(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+
+        return employeeService.getAllEmployees(page, size);
     }
     
     @GetMapping("{id}")

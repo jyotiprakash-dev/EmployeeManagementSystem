@@ -6,6 +6,12 @@ export const listEmployees = () => {
     return axios.get(REST_API_BASE_URL);
 }
 
+export const listEmployeesWithPagination = (page, size) => {
+    return axios.get(
+        REST_API_BASE_URL + `/page?page=${page}&size=${size}`
+    );
+}
+
 export const createEmployee = (employee) => {
     return axios.post(REST_API_BASE_URL, employee);
 }

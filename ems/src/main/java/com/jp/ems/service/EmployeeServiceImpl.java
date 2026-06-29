@@ -8,6 +8,9 @@ import com.jp.ems.entity.Employee;
 import com.jp.ems.exception.ResourceNotFoundException;
 import com.jp.ems.repository.EmployeeRepository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -44,5 +47,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
+    }
+    
+    @Override
+    public Page<Employee> getAllEmployees(int page, int size) {
+
+        PageRequest pageable = PageRequest.of(page, size);
+
+        return employeeRepository.findAll(pageable);
     }
 }

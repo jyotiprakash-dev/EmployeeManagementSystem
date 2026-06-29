@@ -2,28 +2,34 @@ import React, { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { listEmployees, deleteEmployee } from '../services/EmployeeService';
+import {listEmployeesWithPagination, deleteEmployee} from '../services/EmployeeService';
 
 const ListEmployeeComponent = () => {
 
     const [employees, setEmployees] = useState([]);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [pageSize] = useState(5);
+    const [totalPages, setTotalPages] = useState(0);
+
     const [searchTerm, setSearchTerm] = useState('');
 
-    function getAllEmployees() {
+    function getAllEmployees(page = currentPage) {
 
-        listEmployees()
-        .then((response) => {
-            setEmployees(response.data);
+        listEmployeesWithPagination(page, pageSize).then((response) => {
+
+            setEmployees(response.data.content);
+            setCurrentPage(response.data.number);
+            setTotalPages(response.data.totalPages);
+
         })
         .catch(error => {
             console.error(error);
         });
-
     }
 
     useEffect(() => {
-        getAllEmployees();
-    }, []);
+        getAllEmployees(currentPage);
+    }, [currentPage]);
 
     const navigate = useNavigate();
 
@@ -119,6 +125,30 @@ const ListEmployeeComponent = () => {
                     }
                 </tbody>
             </table>
+
+            <div className="d-flex justify-content-center align-items-center mt-3">
+
+                <button className="btn btn-secondary me-2"
+                    disabled={currentPage === 0}
+                    onClick={() => setCurrentPage(currentPage - 1)}>
+
+                    Previous
+
+                </button>
+
+                <span className="mx-3">
+                    Page {currentPage + 1} of {totalPages}
+                </span>
+
+                <button className="btn btn-secondary ms-2"
+                    disabled={currentPage + 1 === totalPages}
+                    onClick={() => setCurrentPage(currentPage + 1)}>
+
+                    Next
+
+                </button>
+
+            </div>
         </div>
     );
 };
