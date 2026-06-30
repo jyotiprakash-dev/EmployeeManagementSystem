@@ -77,7 +77,39 @@ main.jsx
 
 ## Screenshots
 
-(Add screenshots here)
+## Home Page
+
+![Home Page](screenshots/home-page.png)
+
+---
+
+## Add Employee
+
+![Add Employee](screenshots/add-employee.png)
+
+---
+
+## Edit Employee
+
+![Edit Employee](screenshots/edit-employee.png)
+
+---
+
+## Form Validation
+
+![Validation](screenshots/validation.png)
+
+---
+
+## Pagination
+
+![Pagination](screenshots/pagination.png)
+
+---
+
+## 404 Page
+
+![404](screenshots/404-page.png)
 
 ---
 
