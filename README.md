@@ -6,10 +6,16 @@ A Full Stack Employee Management System built using Spring Boot, React, MySQL, J
 
 - Add Employee
 - View Employee List
-- Update Employee Details
+- Update Employee
 - Delete Employee
-- Responsive User Interface
-- REST API Integration
+- Search Employee by First Name
+- Form Validation
+- Pagination
+- Responsive UI
+- Custom 404 Page
+- RESTful APIs
+
+---
 
 ## Tech Stack
 
@@ -22,45 +28,68 @@ A Full Stack Employee Management System built using Spring Boot, React, MySQL, J
 
 ### Frontend
 - React
-- React Router DOM
+- React Router
 - Axios
 - Bootstrap
-- Vite
 
 ### Tools
 - Git
 - GitHub
-- VS Code
-- Eclipse
 - Postman
+- VS Code
+- Eclipse IDE
+
+---
 
 ## Project Structure
 
+Backend
 ```
-EmployeeManagementSystem
-│
-├── ems               (Spring Boot Backend)
-└── ems-frontend      (React Frontend)
+controller
+service
+repository
+entity
+exception
 ```
+
+Frontend
+```
+components
+services
+App.jsx
+main.jsx
+```
+
+---
 
 ## REST APIs
 
 | Method | Endpoint | Description |
-|---------|----------|-------------|
-| GET | /api/employees | Get All Employees |
-| GET | /api/employees/{id} | Get Employee |
-| POST | /api/employees | Add Employee |
-| PUT | /api/employees/{id} | Update Employee |
-| DELETE | /api/employees/{id} | Delete Employee |
+|--------|----------|-------------|
+| GET | /api/employees | Get all employees |
+| GET | /api/employees/{id} | Get employee by ID |
+| POST | /api/employees | Add employee |
+| PUT | /api/employees/{id} | Update employee |
+| DELETE | /api/employees/{id} | Delete employee |
+| GET | /api/employees/page | Get paginated employees |
+
+---
+
+## Screenshots
+
+(Add screenshots here)
+
+---
 
 ## Future Enhancements
 
-- Search Employee
-- Pagination
 - Sorting
+- Authentication
+- Docker
+- Deployment
+
+---
 
 ## Author
 
 **Jyoti Prakash Mandal**
-
-GitHub: https://github.com/jyotiprakash-dev
