@@ -87,11 +87,7 @@ const AddEmployeeComponent = () => {
             return;
         }
 
-        const employee = {
-            firstName,
-            lastName,
-            email
-        };
+        const employee = { firstName, lastName, email };
 
         if (id) {
 
@@ -125,7 +121,7 @@ const AddEmployeeComponent = () => {
                 <div className='card col-md-6 offset-md-3'>
 
                     <h2 className='text-center mt-3'>
-                        Add Employee
+                        {id ? 'Update Employee' : 'Add Employee'}
                     </h2>
 
                     <div className='card-body'>

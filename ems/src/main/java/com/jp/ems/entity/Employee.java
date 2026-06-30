@@ -22,7 +22,7 @@ public class Employee {
 
     @Email(message = "Please enter a valid email")
     private String email;
-
+    
     public Employee() {
     }
 
